@@ -15,9 +15,6 @@ namespace IssueSubmitter.Services
             _httpClient.DefaultRequestHeaders.UserAgent.Add(
                 new ProductInfoHeaderValue("IssueSubmitter", "1.0")
             );
-            _httpClient.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json")
-            );
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                 "Bearer",
                 "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"
@@ -26,18 +23,19 @@ namespace IssueSubmitter.Services
 
         public async Task<bool> CreateIssueAsync(string title, string body)
         {
+            //Would be better to move this out of the service to be set in the controller, so this service could be used for any repo and owner.
             var repoOwner = "zoefarrell";
             var repoName = "MvcMovieStarter";
             var jsonContent = new StringContent(
                 $"{{\"title\":\"{title}\",\"body\":\"{body}\"}}",
-                Encoding.UTF8,
-                "application/json"
+                Encoding.UTF8
             );
 
             var response = await _httpClient.PostAsync(
                 $"/repos/{repoOwner}/{repoName}/issues",
                 jsonContent
             );
+            Console.WriteLine(response);
 
             return response.IsSuccessStatusCode;
         }
