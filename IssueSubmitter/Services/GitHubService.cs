@@ -15,9 +15,10 @@ namespace IssueSubmitter.Services
             _httpClient.DefaultRequestHeaders.UserAgent.Add(
                 new ProductInfoHeaderValue("IssueSubmitter", "1.0")
             );
+            // Don't worry, I deleted the access token I accidentally committed :) 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
                 "Bearer",
-                "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"
+                "<ACCESS TOKEN HERE>"
             );
         }
 
